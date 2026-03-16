@@ -5,12 +5,22 @@ Vagrant.configure("2") do |config|
   config.vm.define "server-dba" do |dba|
     dba.vm.hostname = "server-dba"
     dba.vm.network "private_network", ip: "192.168.56.18"
+
+    dba.vm.provider "virtualbox" do |vb|
+      vb.memory = 1024
+      vb.cpus = 1
+    end
   end
 
   config.vm.define "server-back" do |back|
     back.vm.hostname = "server-back"
     back.vm.network "private_network", ip: "192.168.56.19"
     back.vm.network "forwarded_port", guest: 8080, host: 8080
+
+    back.vm.provider "virtualbox" do |vb|
+      vb.memory = 2048
+      vb.cpus = 2
+    end
   end
 
   config.vm.define "server-front" do |front|
